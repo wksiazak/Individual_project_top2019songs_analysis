@@ -50,7 +50,7 @@ class BillboardScrapper:
             self.c.execute("INSERT INTO top100songs VALUES (default, %s, %s, %s)",
                            (song.rank, song.song_title, song.artist))
         self.conn.commit()
-        print("Dodano piosenki do tabeli")
+        print("Songs from Billboard added into table")
         self.conn.close()
 
 

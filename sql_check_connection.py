@@ -4,11 +4,14 @@ class ConnectionConfig:
     def connection(self, user="TOPsongs_project_user", passwd="qwerty1234"):
         self.conn = pymysql.connect("localhost", user, passwd, "TOPsongs_project")
         if (self.conn):
-            print("...połączono z bazą danych...")
+            print("...connected with database..")
         else:
-            print("błąd połączenia")
+            print("error")
         return self.conn
 
     def closeConnection(self):
         self.conn.close()
-        print("...połączenie zakmniete...")
+        print("...connection closed...")
+
+c = ConnectionConfig()
+c.connection(user="TOPsongs_project_user", passwd="qwerty1234")

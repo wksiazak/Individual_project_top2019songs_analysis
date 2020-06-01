@@ -23,7 +23,7 @@ elements = 603
 the_list = [number]*elements
 #print(the_list)
 spotify_data_2010_2019['number'] = the_list
-print(spotify_data_2010_2019)
+#print(spotify_data_2010_2019)
 #print(spotify_data_2010_2019.dtypes) "title", "artist", "top genre" are object type
 
 #based on below pivot table we can verify which top genre was the most popular in particular year
@@ -37,7 +37,7 @@ print(popular_genre)
 
 #check if data includes nulls
 nulls_summary = spotify_data_2010_2019.isnull().any()
-print(nulls_summary) # after checking there are no null in our dataset
+#print(nulls_summary) # after checking there are no null in our dataset
 
 #correlation
 spotify_data_2010_2019_corr = spotify_data_2010_2019.drop(columns=['title', 'artist','top genre', 'number'])
@@ -81,13 +81,11 @@ class Classifiers:
         print("Nazwa klasyfikatora: " + clf_name)
         print(accuracy_score(y_test, y_pred))
         #print(confusion_matrix(y_test, y_pred))
-    def PCAtrainANDtes(self):
 
-        pass
 
 c= Classifiers()
 labels_mapped=c.labelsMapping(labels)
-print(labels_mapped)
+#print(labels_mapped)
 X_train, X_test, y_train, y_test = c.splitDatasetIntoTrainAndTest(X = scaled_train_features, y=labels_mapped, train_split_percent = 0.6)
 y_pred_tree_train  = c.trainAndTestClassifier(DecisionTreeClassifier(),X_train,X_train,y_train)
 y_pred_tree_test  = c.trainAndTestClassifier(DecisionTreeClassifier(),X_train,X_test,y_train )
