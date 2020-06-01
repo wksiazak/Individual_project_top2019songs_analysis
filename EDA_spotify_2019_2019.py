@@ -81,6 +81,9 @@ class Classifiers:
         print("Nazwa klasyfikatora: " + clf_name)
         print(accuracy_score(y_test, y_pred))
         #print(confusion_matrix(y_test, y_pred))
+    def PCAtrainANDtes(self):
+
+        pass
 
 c= Classifiers()
 labels_mapped=c.labelsMapping(labels)
@@ -103,7 +106,7 @@ c.getClassificationScore("SVM-linear testowanie", y_test, y_pred_svm_lin_test)
 c.getClassificationScore("SVM-rbf trenowanie", y_train, y_pred_svm_rbf_train)
 c.getClassificationScore("SVM-rbf testowanie", y_test, y_pred_svm_rbf_test)
 
-"""#PCA - principal component analysis
+#PCA - principal component analysis
 pca = PCA()
 pca.fit(scaled_train_features)
 exp_variance = pca.explained_variance_ratio_
@@ -133,19 +136,32 @@ pca.fit(scaled_train_features)
 pca_projection = pca.transform(scaled_train_features)
 
 # Split our data
-train_features, test_features, train_labels, test_labels = train_test_split(pca_projection, labels, random_state=10)
+train_features, test_features, train_labels, test_labels = train_test_split(pca_projection, labels_mapped, random_state=10)
 
-# Train our decision tree
+# Train our decision tree & knn &SVC(rbf)
 tree = DecisionTreeClassifier(random_state=10)
 tree.fit(train_features, train_labels)
 
+knn = KNeighborsClassifier(n_neighbors=10)
+knn.fit(train_features, train_labels)
+
+SVC_rbf = SVC(kernel='rbf', gamma='auto')
+SVC_rbf.fit(train_features, train_labels)
+
 # Predict the labels for the test data
 pred_labels_tree = tree.predict(test_features)
+pred_labels_knn = knn.predict(test_features)
+pred_labels_SVC_rbf = knn.predict(test_features)
 
-acc_score = accuracy_score(test_labels, pred_labels_tree)
-print(acc_score)
+acc_score_tree_PCA = accuracy_score(test_labels, pred_labels_tree)
+acc_score_knn_PCA = accuracy_score(test_labels, pred_labels_knn)
+acc_score_SVC_rbf_PCA = accuracy_score(test_labels, pred_labels_SVC_rbf)
+print("DT testowanie PCA",acc_score_tree_PCA)
+print("Knn testowanie PCA", acc_score_knn_PCA)
+print("SVC_rbf testowanie PCA", acc_score_SVC_rbf_PCA)
+
 # Train our logistic regression and predict labels for the test set
-logreg = LogisticRegression(random_state=10)
+"""logreg = LogisticRegression(random_state=10)
 logreg.fit(train_features, train_labels)
 pred_labels_logit = logreg.predict(test_features)
 
