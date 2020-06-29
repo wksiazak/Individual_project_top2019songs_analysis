@@ -37,6 +37,14 @@ class BillboardScrapper:
             print(songs2019)
             self.topsongs2019.append(songs2019)
 
+    def saveResultTofile(self):
+        file = open("Billboard2019_topsongs.txt", 'w', encoding='utf-8', errors="ignore")
+        file.write('%10s %100s %100s \n' %
+                       ('rank_no','song_title', 'artist_name'))  # zapis nagłówka
+        for song in self.topsongs2019:
+            file.write(str(song) + '\n')  # zapis wszystkich filmów
+        file.close()
+
     def createtabletop100songs(self):
         self.c.execute("create table top100songs("
                        "id_number int primary key auto_increment,"
@@ -57,5 +65,6 @@ class BillboardScrapper:
 billboard = BillboardScrapper()
 billboard.gettop100songs2019()
 billboard.scrappingTOP100songs2019()
-billboard.createtabletop100songs()
-billboard.saveSongsToDatabase()
+#billboard.createtabletop100songs()
+#billboard.saveSongsToDatabase()
+billboard.saveResultTofile()
